@@ -1,0 +1,28 @@
+﻿<Window x:Class="Black_jack_e.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Black_jack_e"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Background="AliceBlue">
+        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Margin="20">
+                <Label Content="Speler" Margin="10"></Label>
+                <TextBox x:Name="TxtSpeler" Width="100" Height="60" Margin="10"></TextBox>
+                <Label Name="LblSpelerNummer" Content="0" Margin="10"></Label>
+            </StackPanel>
+            <StackPanel Margin="20">
+                <Button Content="Deel" Name="BtnDeel" Width="100" Height="40" Margin="5" Click="BtnDeel_Click"></Button>
+                <Button Content="Hit" Name="BtnHit" Width="100" Margin="5" Height="40"></Button>
+                <Button Content="Stand" Name="BtnStand" Width="100" Margin="5" Height="40"></Button>
+            </StackPanel>
+            <StackPanel Margin="20">
+                <Label Content="Bank" Margin="10"></Label>
+                <TextBox x:Name="TxtBank" Width="100" Height="60" Margin="10"></TextBox>
+                <Label Name="LbLBankNummer" Content="0" Margin="10"></Label>
+            </StackPanel>
+        </WrapPanel>
+    </Grid>
+</Window>
