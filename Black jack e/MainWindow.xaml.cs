@@ -22,7 +22,7 @@ namespace Black_jack_e
     {
         //random is type rnd is naam
         Random rnd = new Random();
-
+        List<int> numberSpeler = new List<int> ();
         public MainWindow()
         {
             InitializeComponent();
@@ -30,16 +30,33 @@ namespace Black_jack_e
 
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
         {
-
+            random();
         }
         //apend line 
         //apend
         private void random()
         {
-            cardValue = rnd.next(1, 14);
-           
+            int kaart = rnd.Next(1,11);
+            numberSpeler.Add(kaart);
+            int som = numberSpeler.Sum();
+            LstSpeler.Items.Add(numberSpeler);
+            LblSpelerNummer.Content = som;
+            if (som > 21)
+            {
+                MessageBox.Show("Bank wint");
+                LblSpelerNummer.Content = string.Empty;
+                LstBank.Items.Clear();
+                LstSpeler.Items.Clear();
+                numberSpeler.Clear();
+            }
+            
+            
+            //LstSpeler.Items.Add(kaart);
+
+            //cardValue = rnd.next(1, 53);
+
         }
-        private
+
     }
     
 }
