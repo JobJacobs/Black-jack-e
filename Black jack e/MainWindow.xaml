@@ -15,8 +15,8 @@
             </StackPanel>
             <StackPanel Margin="20">
                 <Button Content="Deel" Name="BtnDeel" Width="100" Height="40" Margin="5" Click="BtnDeel_Click"></Button>
-                <Button Content="Hit" Name="BtnHit" Width="100" Margin="5" Height="40"></Button>
-                <Button Content="Stand" Name="BtnStand" Width="100" Margin="5" Height="40"></Button>
+                <Button Content="Hit" Name="BtnHit" Width="100" Margin="5" Height="40" Click="BtnHit_Click"></Button>
+                <Button Content="Stand" Name="BtnStand" Width="100" Margin="5" Height="40" Click="BtnStand_Click"></Button>
             </StackPanel>
             <StackPanel Margin="20">
                 <Label Content="Bank" Margin="10"></Label>

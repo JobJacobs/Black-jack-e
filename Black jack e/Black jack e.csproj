@@ -94,5 +94,62 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="kaarten\clubs_10.svg" />
+    <Content Include="kaarten\clubs_2.svg" />
+    <Content Include="kaarten\clubs_3.svg" />
+    <Content Include="kaarten\clubs_4.svg" />
+    <Content Include="kaarten\clubs_5.svg" />
+    <Content Include="kaarten\clubs_6.svg" />
+    <Content Include="kaarten\clubs_7.svg" />
+    <Content Include="kaarten\clubs_8.svg" />
+    <Content Include="kaarten\clubs_9.svg" />
+    <Content Include="kaarten\clubs_ace.svg" />
+    <Content Include="kaarten\clubs_jack.svg" />
+    <Content Include="kaarten\clubs_king.svg" />
+    <Content Include="kaarten\clubs_queen.svg" />
+    <Content Include="kaarten\diamonds_10.svg" />
+    <Content Include="kaarten\diamonds_2.svg" />
+    <Content Include="kaarten\diamonds_3.svg" />
+    <Content Include="kaarten\diamonds_4.svg" />
+    <Content Include="kaarten\diamonds_5.svg" />
+    <Content Include="kaarten\diamonds_6.svg" />
+    <Content Include="kaarten\diamonds_7.svg" />
+    <Content Include="kaarten\diamonds_8.svg" />
+    <Content Include="kaarten\diamonds_9.svg" />
+    <Content Include="kaarten\diamonds_ace.svg" />
+    <Content Include="kaarten\diamonds_jack.svg" />
+    <Content Include="kaarten\diamonds_king.svg" />
+    <Content Include="kaarten\diamonds_queen.svg" />
+    <Content Include="kaarten\hearts_10.svg" />
+    <Content Include="kaarten\hearts_2.svg" />
+    <Content Include="kaarten\hearts_3.svg" />
+    <Content Include="kaarten\hearts_4.svg" />
+    <Content Include="kaarten\hearts_5.svg" />
+    <Content Include="kaarten\hearts_6.svg" />
+    <Content Include="kaarten\hearts_7.svg" />
+    <Content Include="kaarten\hearts_8.svg" />
+    <Content Include="kaarten\hearts_9.svg" />
+    <Content Include="kaarten\hearts_ace.svg" />
+    <Content Include="kaarten\hearts_jack.svg" />
+    <Content Include="kaarten\hearts_king.svg" />
+    <Content Include="kaarten\hearts_queen.svg" />
+    <Content Include="kaarten\joker_black.svg" />
+    <Content Include="kaarten\joker_red.svg" />
+    <Content Include="kaarten\spades_10.svg" />
+    <Content Include="kaarten\spades_2.svg" />
+    <Content Include="kaarten\spades_3.svg" />
+    <Content Include="kaarten\spades_4.svg" />
+    <Content Include="kaarten\spades_5.svg" />
+    <Content Include="kaarten\spades_6.svg" />
+    <Content Include="kaarten\spades_7.svg" />
+    <Content Include="kaarten\spades_8.svg" />
+    <Content Include="kaarten\spades_9.svg" />
+    <Content Include="kaarten\spades_ace.svg" />
+    <Content Include="kaarten\spades_jack.svg" />
+    <Content Include="kaarten\spades_king.svg" />
+    <Content Include="kaarten\spades_queen.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

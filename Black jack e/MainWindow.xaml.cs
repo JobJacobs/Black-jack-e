@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Black_jack_e
 {
@@ -20,43 +10,139 @@ namespace Black_jack_e
     /// </summary>
     public partial class MainWindow : Window
     {
-        //random is type rnd is naam
+        
         Random rnd = new Random();
-        List<int> numberSpeler = new List<int> ();
+        List<int> numberSpeler = new List<int>();
+        List<int> numberBank = new List<int>();
+        string state = "start";
         public MainWindow()
         {
             InitializeComponent();
+            veranderstaat("start");
+
+        }
+        private void veranderstaat(string niewState)
+        {
+            state = niewState;
+            switch(niewState)
+            {
+                case "start":
+                    BtnDeel.IsEnabled= true;
+                    BtnHit.IsEnabled= false;
+                    BtnStand.IsEnabled= false;
+                    break;
+                case "speelfase":
+                    BtnDeel.IsEnabled = false;
+                    BtnHit.IsEnabled = true;
+                    BtnStand.IsEnabled = true;
+                    break;
+                case "gewonnen":
+                    BtnDeel.IsEnabled = true;
+                    BtnHit.IsEnabled = false;
+                    BtnStand.IsEnabled = false;
+                    break;
+
+            }
         }
 
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
         {
-            random();
+            veranderstaat("speelfase");
+            kaartenBank(true);
+            GeefKaart(true);
         }
         //apend line 
         //apend
-        private void random()
+
+        private void GeefKaart(bool isSpeler)
         {
-            int kaart = rnd.Next(1,11);
-            numberSpeler.Add(kaart);
-            int som = numberSpeler.Sum();
-            LstSpeler.Items.Add(numberSpeler);
-            LblSpelerNummer.Content = som;
-            if (som > 21)
+            int kaart = rnd.Next(1, 11);
+            int soort = rnd.Next(1, 5);
+            string soortNaam = null;
+            switch (soort)
             {
-                MessageBox.Show("Bank wint");
-                LblSpelerNummer.Content = string.Empty;
-                LstBank.Items.Clear();
-                LstSpeler.Items.Clear();
-                numberSpeler.Clear();
+                case 1:
+                    soortNaam = "klaveren";
+                    break;
+                case 2:
+                    soortNaam = "schuppen";
+                    break;
+                case 3:
+                    soortNaam = "harten";
+                    break;
+                case 4:
+                    soortNaam = "ruiten";
+                    break;  
             }
-            
-            
-            //LstSpeler.Items.Add(kaart);
-
-            //cardValue = rnd.next(1, 53);
-
+            if (isSpeler)
+            {
+                numberSpeler.Add(kaart);
+                LstSpeler.Items.Add(soortNaam + " " + kaart);
+                int som = numberSpeler.Sum();
+                LblSpelerNummer.Content = som;
+                
+            }
+            else
+            {
+                numberBank.Add(kaart);
+                LstBank.Items.Add(soortNaam + " " + kaart);
+                int som = numberBank.Sum();
+                LbLBankNummer.Content = som;
+            }
         }
 
+        private void BtnHit_Click(object sender, RoutedEventArgs e)
+        {
+            GeefKaart(true);
+        }
+
+        private void kaartenBank(bool isBank)
+        {
+            int kaart = rnd.Next(1, 11);
+            int soort = rnd.Next(1, 5);
+            string soortNaam = null;
+            switch (soort)
+            {
+                case 1:
+                    soortNaam = "klaveren";
+                    break;
+                case 2:
+                    soortNaam = "schuppen";
+                    break;
+                case 3:
+                    soortNaam = "harten";
+                    break;
+                case 4:
+                    soortNaam = "ruiten";
+                    break;
+            }
+            if (isBank)
+            {
+                numberBank.Add(kaart);
+                LstBank.Items.Add(soortNaam + " " + kaart);
+                int som = numberBank.Sum();
+                LbLBankNummer.Content = som;
+
+            }
+            else
+            {
+                numberBank.Add(kaart);
+                LstSpeler.Items.Add(soortNaam + " " + kaart);
+                int som = numberBank.Sum();
+                LblSpelerNummer.Content = som;
+            }
+        }
+
+
+        private void BtnStand_Click(object sender, RoutedEventArgs e)
+        {
+            kaartenBank(true);
+        }
+
+        private void WinnerLoser()
+        {
+
+        }
     }
-    
+
 }
