@@ -6,23 +6,30 @@
         xmlns:local="clr-namespace:Black_jack_e"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Background="AliceBlue">
+    <Grid>
+        <Grid x:Name="BackgroundImg" Width="800" Height="450">
+            <Grid.Background>
+                <ImageBrush ImageSource="/background/640x345_bljk.png"></ImageBrush>
+            </Grid.Background>
+        </Grid>
+        <Label HorizontalAlignment="Left" Content="100" Name="bedrag" Width="200"></Label>
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Margin="20">
-                <Label Content="Speler" Margin="10"></Label>
-                <ListBox x:Name="LstSpeler" Width="100" Height="200" Margin="10"></ListBox>
-                <Label Name="LblSpelerNummer" Content="0" Margin="10"></Label>
+                <Label Content="Speler" Margin="10" FontSize="20" Foreground="GreenYellow"></Label>
+                <ListBox x:Name="LstSpeler" Width="100" Height="200" Margin="10" Background="Transparent"></ListBox>
+                <Label Name="LblSpelerNummer" Content="0" Margin="10" FontSize="20" Foreground="GreenYellow"></Label>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Margin="20">
+                <Button Content="Deel" Name="BtnDeel" Width="100" Height="40" Margin="5" Click="BtnDeel_Click"  ></Button>
+                <Button Content="Hit" Name="BtnHit" Width="100" Margin="40" Height="40" Click="BtnHit_Click" ></Button>
+                <Button Content="Stand" Name="BtnStand" Width="100" Margin="5" Height="40" Click="BtnStand_Click" ></Button>
             </StackPanel>
             <StackPanel Margin="20">
-                <Button Content="Deel" Name="BtnDeel" Width="100" Height="40" Margin="5" Click="BtnDeel_Click"></Button>
-                <Button Content="Hit" Name="BtnHit" Width="100" Margin="5" Height="40" Click="BtnHit_Click"></Button>
-                <Button Content="Stand" Name="BtnStand" Width="100" Margin="5" Height="40" Click="BtnStand_Click"></Button>
-            </StackPanel>
-            <StackPanel Margin="20">
-                <Label Content="Bank" Margin="10"></Label>
-                <ListBox x:Name="LstBank" Width="100" Height="200" Margin="10"></ListBox>
-                <Label Name="LbLBankNummer" Content="0" Margin="10"></Label>
+                <Label Content="Bank" Margin="10" FontSize="20" Foreground="red"></Label>
+                <ListBox x:Name="LstBank" Width="100" Height="200" Margin="10" Background="Transparent"></ListBox>
+                <Label Name="LbLBankNummer" Content="0" Margin="10" FontSize="20" Foreground="Red"></Label>
             </StackPanel>
         </WrapPanel>
+        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Name="BtnNieuwSpel" Content="Nieuw Spel" Width="200" Height="50" Visibility="Hidden" Click="BtnNieuwSpel_Click"></Button>
     </Grid>
 </Window>

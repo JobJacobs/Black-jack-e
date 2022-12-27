@@ -30,6 +30,16 @@ namespace Black_jack_e
                     BtnDeel.IsEnabled= true;
                     BtnHit.IsEnabled= false;
                     BtnStand.IsEnabled= false;
+                    BtnNieuwSpel.Visibility = Visibility.Hidden;
+                    BtnDeel.Visibility = Visibility.Visible;
+                    BtnHit.Visibility = Visibility.Visible;
+                    BtnStand.Visibility = Visibility.Visible;
+                    LstSpeler.Items.Clear();
+                    LstBank.Items.Clear();
+                    LbLBankNummer.Content = "0";
+                    LblSpelerNummer.Content = "0";
+                    //int som=0;;
+
                     break;
                 case "speelfase":
                     BtnDeel.IsEnabled = false;
@@ -37,19 +47,26 @@ namespace Black_jack_e
                     BtnStand.IsEnabled = true;
                     break;
                 case "gewonnen":
-                    BtnDeel.IsEnabled = true;
+                    BtnDeel.IsEnabled = false;
                     BtnHit.IsEnabled = false;
                     BtnStand.IsEnabled = false;
+                    BtnDeel.Visibility = Visibility.Hidden;
+                    BtnHit.Visibility = Visibility.Hidden;
+                    BtnStand.Visibility = Visibility.Hidden;
+                    BtnNieuwSpel.Visibility = Visibility.Visible;
+                    
                     break;
-
+                    
             }
         }
 
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
         {
             veranderstaat("speelfase");
-            kaartenBank(true);
+            //kaartenBank(true);
             GeefKaart(true);
+            GeefKaart(true);
+            GeefKaart(false);
         }
         //apend line 
         //apend
@@ -80,7 +97,11 @@ namespace Black_jack_e
                 LstSpeler.Items.Add(soortNaam + " " + kaart);
                 int som = numberSpeler.Sum();
                 LblSpelerNummer.Content = som;
-                
+                if( numberSpeler.Sum() > 21)
+                {
+                    MessageBox.Show("U loser");
+                    veranderstaat("gewonnen");
+                }
             }
             else
             {
@@ -96,52 +117,41 @@ namespace Black_jack_e
             GeefKaart(true);
         }
 
-        private void kaartenBank(bool isBank)
-        {
-            int kaart = rnd.Next(1, 11);
-            int soort = rnd.Next(1, 5);
-            string soortNaam = null;
-            switch (soort)
-            {
-                case 1:
-                    soortNaam = "klaveren";
-                    break;
-                case 2:
-                    soortNaam = "schuppen";
-                    break;
-                case 3:
-                    soortNaam = "harten";
-                    break;
-                case 4:
-                    soortNaam = "ruiten";
-                    break;
-            }
-            if (isBank)
-            {
-                numberBank.Add(kaart);
-                LstBank.Items.Add(soortNaam + " " + kaart);
-                int som = numberBank.Sum();
-                LbLBankNummer.Content = som;
-
-            }
-            else
-            {
-                numberBank.Add(kaart);
-                LstSpeler.Items.Add(soortNaam + " " + kaart);
-                int som = numberBank.Sum();
-                LblSpelerNummer.Content = som;
-            }
-        }
-
-
         private void BtnStand_Click(object sender, RoutedEventArgs e)
         {
-            kaartenBank(true);
+            bool bankStop=false;
+            do
+            {
+
+                GeefKaart(false);
+                if (numberBank.Sum() > 16)
+                {
+                    if (numberBank.Sum() > numberSpeler.Sum())
+                    {
+                        bankStop = true;
+                    }
+                    else if (numberBank.Sum() == numberSpeler.Sum())
+                    {
+                        bankStop = true;
+                    }
+                    else if (numberBank.Sum() > 21)
+                    {
+                        bankStop=true;
+                    }
+                }
+
+            } while (bankStop==false);
+            
         }
 
         private void WinnerLoser()
         {
+            
+        }
 
+        private void BtnNieuwSpel_Click(object sender, RoutedEventArgs e)
+        {
+            veranderstaat("start");
         }
     }
 

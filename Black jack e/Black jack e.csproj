@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="background\640x345_bljk.png" />
     <Content Include="kaarten\clubs_10.svg" />
     <Content Include="kaarten\clubs_2.svg" />
     <Content Include="kaarten\clubs_3.svg" />
