@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
-
+using System.Windows.Media.Imaging;
 
 namespace Black_jack_e
 {
@@ -12,7 +11,7 @@ namespace Black_jack_e
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        List<string> newDeck = new List<string>();
         Random rnd = new Random();
         List<int> numberSpeler = new List<int>();
         List<int> numberBank = new List<int>();
@@ -21,7 +20,8 @@ namespace Black_jack_e
         {
             InitializeComponent();
             veranderstaat("start");
-
+            newDeck=vulDeck();
+            
         }
         private void veranderstaat(string niewState)
         {
@@ -42,7 +42,7 @@ namespace Black_jack_e
                     numberBank.Clear();
                     LbLBankNummer.Content = "0";
                     LblSpelerNummer.Content = "0";
-                    
+
                     break;
                 case "speelfase":
                     BtnDeel.IsEnabled = false;
@@ -57,15 +57,16 @@ namespace Black_jack_e
                     BtnHit.Visibility = Visibility.Hidden;
                     BtnStand.Visibility = Visibility.Hidden;
                     BtnNieuwSpel.Visibility = Visibility.Visible;
-
                     break;
 
             }
         }
 
+
+
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
         {
-            
+
             veranderstaat("speelfase");
             //kaartenBank(true);
             GeefKaart(true);
@@ -74,10 +75,48 @@ namespace Black_jack_e
         }
         //apend line 
         //apend
+        private List<string> vulDeck()
+        {
+            List<string> kaarten = new List<string>();
+               string[] suits = { "Clubs", "Diamonds", "Hearts", "Spades" };
+            string[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
+            foreach (string suit in suits)
+            {
+                foreach (string rank in ranks)
+                {
+                    kaarten.Add(suit.ToLower() +"_"+ rank.ToLower()+".png");
+                    
+                }
+            }
+            return kaarten;
+        } 
 
         private void GeefKaart(bool isSpeler)
         {
-            int kaart = rnd.Next(1, 11);
+            if(newDeck.Count< 10)
+            {
+                newDeck= vulDeck();
+            }
+            string kaart = newDeck[rnd.Next(newDeck.Count)];
+            kaart1Speler.Source = new BitmapImage(new Uri($"kaarten/{kaart}", UriKind.Relative));
+            //geef de waarde van de kaard aan de speler
+
+            string waarde = kaart.Split('.')[0].Split('_')[1];
+            if (waarde == "jack" || waarde == "queen" || waarde == "king")
+            {
+                waarde = "10";
+            }
+            if(waarde== "ace")
+            {
+                waarde = "11";
+            }
+            numberSpeler.Add(Convert.ToInt32(waarde));
+            //verwijder kaar uit dek
+            newDeck.Remove(kaart);
+
+
+
+            /*int kaart = rnd.Next(1, 11);
             int soort = rnd.Next(1, 5);
             string soortNaam = null;
             switch (soort)
@@ -105,9 +144,9 @@ namespace Black_jack_e
                 {
                     MessageBox.Show("verloren");
                     veranderstaat("gewonnen");
-                    
+
                 }
-                
+
             }
             else
             {
@@ -115,7 +154,7 @@ namespace Black_jack_e
                 LstBank.Items.Add(soortNaam + " " + kaart);
                 int som = numberBank.Sum();
                 LbLBankNummer.Content = som;
-            }
+            }*/
         }
 
         private void BtnHit_Click(object sender, RoutedEventArgs e)
@@ -132,13 +171,13 @@ namespace Black_jack_e
                 GeefKaart(false);
                 if (numberBank.Sum() > 16)
                 {
-                    if (numberBank.Sum() > numberSpeler.Sum()&&numberBank.Sum() < 22)
+                    if (numberBank.Sum() > numberSpeler.Sum() && numberBank.Sum() < 22)
                     {
                         bankStop = true;
                         MessageBox.Show("Verloren");
                     }
                     else if (numberBank.Sum() == numberSpeler.Sum())
-                    {                       
+                    {
                         bankStop = true;
                         MessageBox.Show("Push");
                     }
@@ -166,7 +205,10 @@ namespace Black_jack_e
 
         private void BedragSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            
+            int bedrag = Convert.ToInt32(LblgeldInBank.Content);
+            bedrag = Convert.ToInt32(bedrag * (e.NewValue / 100));
+            LblgeldInBank.Content=100-bedrag;
+            LblInzet.Content = bedrag.ToString();
         }
     }
 

@@ -17,12 +17,15 @@
                     <ImageBrush ImageSource="/background/640x345_bljk.png" Opacity="1" ></ImageBrush>
                 </Grid.Background>
             </Grid>
-            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="100" Name="geldInBank" FontSize="50"></Label>
-            <Label HorizontalAlignment="Center" VerticalAlignment="Top" Content="0" x:Name="LblInzet" Width="200" FontSize="40" HorizontalContentAlignment="Center"></Label>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="100" x:Name="LblgeldInBank" FontSize="50"></Label>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Top" Content="" x:Name="LblInzet" Width="200" FontSize="40" HorizontalContentAlignment="Center"></Label>
             <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Margin="20">
                     <Label Content="Speler" Margin="10" FontSize="20" Foreground="GreenYellow"></Label>
-                    <ListBox x:Name="LstSpeler" Width="100" Height="200" Margin="10" Background="Transparent"></ListBox>
+                    <ListBox x:Name="LstSpeler" Width="100" Height="200" Margin="10" Background="Transparent">
+                        
+                    </ListBox>
+                    <Image Width="10" Name="kaart1Speler"></Image>
                     <Label Name="LblSpelerNummer" Content="0" Margin="10" FontSize="20" Foreground="GreenYellow"></Label>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Margin="20">
@@ -37,7 +40,7 @@
                 </StackPanel>
             </WrapPanel>
             <Button VerticalAlignment="Center" HorizontalAlignment="Center" Name="BtnNieuwSpel" Content="Nieuw Spel" Width="200" Height="50" Visibility="Hidden" Click="BtnNieuwSpel_Click"></Button>
-            <Slider VerticalAlignment="Bottom" Margin="20" x:Name="BedragSlider" Width="600" ValueChanged="BedragSlider_ValueChanged"></Slider>
+            <Slider VerticalAlignment="Bottom" Minimum="10" Maximum="100" Margin="40" x:Name="BedragSlider" Width="600" ValueChanged="BedragSlider_ValueChanged"></Slider>
         </Grid>
     </DockPanel>
 </Window>
