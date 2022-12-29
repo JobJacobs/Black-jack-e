@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
+
 
 namespace Black_jack_e
 {
@@ -10,7 +12,7 @@ namespace Black_jack_e
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
         Random rnd = new Random();
         List<int> numberSpeler = new List<int>();
         List<int> numberBank = new List<int>();
@@ -24,22 +26,23 @@ namespace Black_jack_e
         private void veranderstaat(string niewState)
         {
             state = niewState;
-            switch(niewState)
+            switch (niewState)
             {
                 case "start":
-                    BtnDeel.IsEnabled= true;
-                    BtnHit.IsEnabled= false;
-                    BtnStand.IsEnabled= false;
+                    BtnDeel.IsEnabled = true;
+                    BtnHit.IsEnabled = false;
+                    BtnStand.IsEnabled = false;
                     BtnNieuwSpel.Visibility = Visibility.Hidden;
                     BtnDeel.Visibility = Visibility.Visible;
                     BtnHit.Visibility = Visibility.Visible;
                     BtnStand.Visibility = Visibility.Visible;
                     LstSpeler.Items.Clear();
                     LstBank.Items.Clear();
+                    numberSpeler.Clear();
+                    numberBank.Clear();
                     LbLBankNummer.Content = "0";
                     LblSpelerNummer.Content = "0";
-                    //int som=0;;
-
+                    
                     break;
                 case "speelfase":
                     BtnDeel.IsEnabled = false;
@@ -54,14 +57,15 @@ namespace Black_jack_e
                     BtnHit.Visibility = Visibility.Hidden;
                     BtnStand.Visibility = Visibility.Hidden;
                     BtnNieuwSpel.Visibility = Visibility.Visible;
-                    
+
                     break;
-                    
+
             }
         }
 
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
         {
+            
             veranderstaat("speelfase");
             //kaartenBank(true);
             GeefKaart(true);
@@ -89,7 +93,7 @@ namespace Black_jack_e
                     break;
                 case 4:
                     soortNaam = "ruiten";
-                    break;  
+                    break;
             }
             if (isSpeler)
             {
@@ -97,11 +101,13 @@ namespace Black_jack_e
                 LstSpeler.Items.Add(soortNaam + " " + kaart);
                 int som = numberSpeler.Sum();
                 LblSpelerNummer.Content = som;
-                if( numberSpeler.Sum() > 21)
+                if (numberSpeler.Sum() > 21)
                 {
-                    MessageBox.Show("U loser");
+                    MessageBox.Show("verloren");
                     veranderstaat("gewonnen");
+                    
                 }
+                
             }
             else
             {
@@ -119,39 +125,48 @@ namespace Black_jack_e
 
         private void BtnStand_Click(object sender, RoutedEventArgs e)
         {
-            bool bankStop=false;
+            bool bankStop = false;
             do
             {
 
                 GeefKaart(false);
                 if (numberBank.Sum() > 16)
                 {
-                    if (numberBank.Sum() > numberSpeler.Sum())
+                    if (numberBank.Sum() > numberSpeler.Sum()&&numberBank.Sum() < 22)
                     {
                         bankStop = true;
+                        MessageBox.Show("Verloren");
                     }
                     else if (numberBank.Sum() == numberSpeler.Sum())
-                    {
+                    {                       
                         bankStop = true;
+                        MessageBox.Show("Push");
                     }
                     else if (numberBank.Sum() > 21)
                     {
-                        bankStop=true;
+                        bankStop = true;
+                        MessageBox.Show("gewonnen");
                     }
                 }
 
-            } while (bankStop==false);
-            
-        }
+            } while (bankStop == false);
+            veranderstaat("gewonnen");
 
-        private void WinnerLoser()
-        {
-            
         }
 
         private void BtnNieuwSpel_Click(object sender, RoutedEventArgs e)
         {
             veranderstaat("start");
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BedragSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            
         }
     }
 
