@@ -5,42 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Black_jack_e"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="MainWindow" Height="500" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/background/640x345_bljk.png" />
+        </Grid.Background> 
     <DockPanel>
         <Menu DockPanel.Dock="Bottom">
-            <Label Content="time" Name="tijd"></Label>
+            <Label Content="time" Name="tijd" ></Label>
         </Menu>
 
-        <Grid Height="440" Width="798">
-            <Grid x:Name="BackgroundImg" Margin="0,0,0,-14">
-                <Grid.Background>
-                    <ImageBrush ImageSource="/background/640x345_bljk.png" Opacity="1" ></ImageBrush>
-                </Grid.Background>
-            </Grid>
-            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Content="100" x:Name="LblgeldInBank" FontSize="50"></Label>
-            <Label HorizontalAlignment="Center" VerticalAlignment="Top" Content="" x:Name="LblInzet" Width="200" FontSize="40" HorizontalContentAlignment="Center"></Label>
-            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <StackPanel Margin="20">
-                    <Label Content="Speler" Margin="10" FontSize="20" Foreground="GreenYellow"></Label>
-                    <ListBox x:Name="LstSpeler" Width="100" Height="200" Margin="10" Background="Transparent">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="280"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+                <Viewbox MaxHeight="120" MinHeight="60" MinWidth="60" Grid.Row="0" Grid.Column="0">
+                <TextBox  x:Name="TxtGeldInBank" Text="100"  IsEnabled="False" ></TextBox>
+            </Viewbox>
+            <Viewbox Grid.Column="2" Grid.Row="0">
+                <TextBox Text="0" x:Name="TxtInzet"  IsEnabled="False"></TextBox>
+            </Viewbox>
+
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Viewbox MaxHeight="80">
+                    <Label Foreground="Aqua" Content="Speler" ></Label>
+                </Viewbox>
+                    <StackPanel x:Name="SpelerKaartContainer" MaxHeight="120" Orientation="Horizontal" >
                         
-                    </ListBox>
-                    <Image Width="10" Name="kaart1Speler"></Image>
-                    <Label Name="LblSpelerNummer" Content="0" Margin="10" FontSize="20" Foreground="GreenYellow"></Label>
+                    </StackPanel>
+                    <Viewbox Height="100" >
+                    <Label Foreground="Aqua" Name="LblSpelerNummer" Content=""  ></Label>
+                </Viewbox>
+            </StackPanel>
+            <Viewbox Grid.Row="1" Grid.Column="2" >
+                <StackPanel Orientation="Vertical" Width="100">
+                    <Button Content="Deel" Name="BtnDeel"   Margin="0,10" Click="BtnDeel_Click"  ></Button>
+                    <Button Content="Hit" Name="BtnHit"  Margin="0,10"  Click="BtnHit_Click" ></Button>
+                    <Button Content="Stand" Name="BtnStand"  Margin="0,10" Click="BtnStand_Click" ></Button>
                 </StackPanel>
-                <StackPanel VerticalAlignment="Center" Margin="20">
-                    <Button Content="Deel" Name="BtnDeel" Width="100" Height="40" Margin="5" Click="BtnDeel_Click"  ></Button>
-                    <Button Content="Hit" Name="BtnHit" Width="100" Margin="40" Height="40" Click="BtnHit_Click" ></Button>
-                    <Button Content="Stand" Name="BtnStand" Width="100" Margin="5" Height="40" Click="BtnStand_Click" ></Button>
-                </StackPanel>
-                <StackPanel Margin="20">
-                    <Label Content="Bank" Margin="10" FontSize="20" Foreground="red"></Label>
-                    <ListBox x:Name="LstBank" Width="100" Height="200" Margin="10" Background="Transparent"></ListBox>
-                    <Label Name="LbLBankNummer" Content="0" Margin="10" FontSize="20" Foreground="Red"></Label>
-                </StackPanel>
-            </WrapPanel>
-            <Button VerticalAlignment="Center" HorizontalAlignment="Center" Name="BtnNieuwSpel" Content="Nieuw Spel" Width="200" Height="50" Visibility="Hidden" Click="BtnNieuwSpel_Click"></Button>
-            <Slider VerticalAlignment="Bottom" Minimum="10" Maximum="100" Margin="40" x:Name="BedragSlider" Width="600" ValueChanged="BedragSlider_ValueChanged"></Slider>
+            </Viewbox>
+                <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical" Grid.ColumnSpan="2">
+                <Viewbox MaxHeight="80" Grid.Row="4" Grid.Column="1">
+                    <Label Foreground="Aqua" Content="Bank" ></Label>
+                </Viewbox>
+                    <StackPanel x:Name="BankKaartContainer" MaxHeight="120" Orientation="Horizontal" >
+                    </StackPanel>
+                    <Label Name="LbLBankNummer" Content="" Margin="20"  Foreground="Aqua"></Label>
+                    
+                 </StackPanel>
+            <Viewbox Grid.Row="2" Grid.ColumnSpan="5" >
+                <Slider Minimum="10" Maximum="100" x:Name="BedragSlider" Margin="50,0" Width="600" ValueChanged="BedragSlider_ValueChanged" ></Slider>
+            </Viewbox>
+                <Viewbox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+                <Button  Content="Nieuw ronde" Name="BtnNieuwRonde" Click="BtnNieuwRonde_Click" Visibility="Hidden"/>
+                </Viewbox>
+                <Viewbox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+                <Button  Content="Nieuw spel" Name="BtnNieuwSpel" Click="BtnNieuwspel_Click" Visibility="Hidden" />
+                </Viewbox>
+                <Viewbox Grid.Column="4" Grid.Row="0">
+                    <Label Name="LblVerloren" Content="Verloren" Foreground="Red" Visibility="Hidden"></Label>
+                </Viewbox>
+                <Viewbox Grid.Column="4" Grid.Row="0">
+                    <Label Name="LblPush" Content="push" Foreground="Black" Visibility="Hidden"></Label>
+                </Viewbox>
+                <Viewbox Grid.Column="4" Grid.Row="0">
+                    <Label Name="LblGewonen" Content="Gewonnen" Foreground="Green" Visibility="Hidden"></Label>
+                </Viewbox>
         </Grid>
     </DockPanel>
+    </Grid>
 </Window>
