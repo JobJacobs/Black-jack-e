@@ -150,5 +150,8 @@
     <Resource Include="kaarten\spades_king.png" />
     <Resource Include="kaarten\spades_queen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="backgrount img\de-achterkant-60x90-mm-van-de-speelkaart-17512250.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

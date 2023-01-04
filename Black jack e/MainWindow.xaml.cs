@@ -113,8 +113,7 @@ namespace Black_jack_e
             {
                 foreach (string rank in ranks)
                 {
-                    kaarten.Add(suit.ToLower() +"_"+ rank.ToLower()+".png");
-                    
+                    kaarten.Add(suit.ToLower() +"_"+ rank.ToLower()+".png");                    
                 }
             }
             return kaarten;
@@ -130,20 +129,14 @@ namespace Black_jack_e
             if(newDeck.Count< 1)
             {
                 newDeck= VulDeck();
+                TxtKaartenInDeck.Text = "52";
             }
             string kaart = newDeck[rnd.Next(newDeck.Count)];
             
             Image image = new Image();
-            image.MaxHeight = 80;
-            
-            image.Source = new BitmapImage(new Uri($"kaarten/{kaart}", UriKind.Relative));
-            
+            image.MaxHeight = 80;            
+            image.Source = new BitmapImage(new Uri($"kaarten/{kaart}", UriKind.Relative));           
             kaartcontainer.Children.Add(image);
-
-            
-
-
-
             string waarde = kaart.Split('.')[0].Split('_')[1];
             if (waarde == "jack" || waarde == "queen" || waarde == "king")
             {
@@ -157,6 +150,8 @@ namespace Black_jack_e
             int som = 0;
             newDeck.Remove(kaart);
             //verwijder kaar uit dek
+            string kaartCounter = TxtKaartenInDeck.Text;
+            
             foreach (var item in spelerBank)
             {
                 
