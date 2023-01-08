@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using static System.Net.Mime.MediaTypeNames;
 using Image = System.Windows.Controls.Image;
 
@@ -21,16 +23,30 @@ namespace Black_jack_e
         Random rnd = new Random();
         List<int> numberSpeler = new List<int>();
         List<int> numberBank = new List<int>();
-        
+        int aantalKaartenInDeck = 52;
+        private DispatcherTimer timer1;
+        private DispatcherTimer timer2;
 
-        
         public MainWindow()
         {
             InitializeComponent();
+            timer1 = new DispatcherTimer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = TimeSpan.FromSeconds(1); // 1 second
+            timer2 = new DispatcherTimer();
+            timer2.Tick += new EventHandler(timer2_Tick);
+            timer2.Interval = TimeSpan.FromMilliseconds(500); // 0,5 second
+            timer2.Start();
             Veranderstaat("start");
             newDeck=VulDeck();
             
         }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            tijd.Content = DateTime.Now.ToString("HH:mm:ss");
+        }
+
         private void Veranderstaat(string niewState)
         {
             
@@ -70,6 +86,7 @@ namespace Black_jack_e
                     BedragSlider.Visibility = Visibility.Hidden;
                     break;
                 case "gewonnen":
+                    timer1.Stop();
                     BtnDeel.IsEnabled = false;
                     BtnHit.IsEnabled = false;
                     BtnStand.IsEnabled = false;
@@ -84,9 +101,31 @@ namespace Black_jack_e
                     break;
             }
         }
-        
-        private void BtnDeel_Click(object sender, RoutedEventArgs e)
+        int seconde = 0;
+        int minuten = 0;
+        int uren = 0;
+        private void timer1_Tick(object sender, EventArgs e)
         {
+            
+            seconde++;
+            if(seconde == 60)
+            {
+                minuten++;
+                seconde = 0;
+                
+            }
+            if(minuten == 60)
+            {
+                uren++;
+                minuten = 0;
+            }
+            LblTimer.Content = $"{uren.ToString().PadLeft(2, '0')}:{minuten.ToString().PadLeft(2, '0')}:{seconde.ToString().PadLeft(2, '0')}";
+
+        }
+        private async void BtnDeel_Click(object sender, RoutedEventArgs e)
+        {
+            timer1.Start();
+            
             int geldBank = int.Parse(TxtGeldInBank.Text);
             int inzet = int.Parse(TxtInzet.Text);
             geldBank -= inzet;
@@ -97,6 +136,7 @@ namespace Black_jack_e
             GeefKaart(true, numberSpeler,LblSpelerNummer,SpelerKaartContainer);
             GeefKaart(true, numberSpeler, LblSpelerNummer, SpelerKaartContainer);
             // geeft kaart aan speler 
+            await Task.Delay(1000);
             GeefKaart(true, numberBank, LbLBankNummer, BankKaartContainer);
             //Geef Kaart aan bank
             
@@ -125,11 +165,10 @@ namespace Black_jack_e
         /// maak nieuw dek aan       
         /// </summary>
         private void GeefKaart(bool isSpeler , List<int> spelerBank, Label label, StackPanel kaartcontainer)
-        {           
-            if(newDeck.Count< 1)
+        {
+            if (newDeck.Count< 1)
             {
-                newDeck= VulDeck();
-                TxtKaartenInDeck.Text = "52";
+                newDeck= VulDeck();               
             }
             string kaart = newDeck[rnd.Next(newDeck.Count)];
             
@@ -150,13 +189,14 @@ namespace Black_jack_e
             int som = 0;
             newDeck.Remove(kaart);
             //verwijder kaar uit dek
+            aantalKaartenInDeck = newDeck.Count();
+            TxtKaartenInDeck.Text = aantalKaartenInDeck.ToString();
             string kaartCounter = TxtKaartenInDeck.Text;
             
             foreach (var item in spelerBank)
             {
                 
-                som += item;
-                
+                som += item;                
             }           
 
             label.Content = som;
@@ -201,14 +241,14 @@ namespace Black_jack_e
             kapitaal += inzet;
             TxtGeldInBank.Text = kapitaal.ToString();
         }
-        private void BtnStand_Click(object sender, RoutedEventArgs e)
+        private async void BtnStand_Click(object sender, RoutedEventArgs e)
         {
             bool bankStop = false;
             
             do
             {
-
-                GeefKaart(false, numberBank,LbLBankNummer, BankKaartContainer);
+                await Task.Delay(1000);
+                
                 if (numberBank.Sum() > 16)
                 {
                     if (numberBank.Sum() > numberSpeler.Sum() && numberBank.Sum() < 21)
@@ -234,6 +274,10 @@ namespace Black_jack_e
                         Winst();                        
                     }
                 }
+                else
+                {
+                    GeefKaart(false, numberBank, LbLBankNummer, BankKaartContainer);
+                }
 
             } while (bankStop == false);
             Veranderstaat("gewonnen");
@@ -245,12 +289,10 @@ namespace Black_jack_e
         }
 
         private void BedragSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> waardeslider)
-        {
-                        
+        {                        
             int bedrag = Convert.ToInt32(TxtGeldInBank.Text);
             bedrag = Convert.ToInt32(bedrag * (waardeslider.NewValue / 100));            
-            TxtInzet.Text = bedrag.ToString();
-            
+            TxtInzet.Text = bedrag.ToString();            
         }
 
 

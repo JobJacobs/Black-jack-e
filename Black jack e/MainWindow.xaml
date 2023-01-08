@@ -60,13 +60,14 @@
                 </StackPanel>
             </Viewbox>
                 <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical" Grid.ColumnSpan="2">
-                <Viewbox MaxHeight="80" Grid.Row="4" Grid.Column="1">
+                <Viewbox MaxHeight="80">
                     <Label Foreground="Aqua" Content="Bank" ></Label>
                 </Viewbox>
-                    <StackPanel x:Name="BankKaartContainer" MaxHeight="120" Orientation="Horizontal" >
+                    <StackPanel x:Name="BankKaartContainer" MaxHeight="120" Orientation="Horizontal">
                     </StackPanel>
-                    <Label Name="LbLBankNummer" Content="" Margin="20"  Foreground="Aqua"></Label>
-                    
+                    <Viewbox Height="100">
+                    <Label Name="LbLBankNummer" Content="" Foreground="Aqua"></Label>
+                    </Viewbox>
                  </StackPanel>
             <Viewbox Grid.Row="2" Grid.ColumnSpan="5" >
                 <Slider Minimum="10" Maximum="100" x:Name="BedragSlider" Margin="50,0" Width="600" ValueChanged="BedragSlider_ValueChanged" ></Slider>
@@ -85,6 +86,9 @@
                 </Viewbox>
                 <Viewbox Grid.Column="4" Grid.Row="0">
                     <Label Name="LblGewonen" Content="Gewonnen" Foreground="Green" Visibility="Hidden"></Label>
+                </Viewbox>
+                <Viewbox Grid.Column="3" >
+                    <Label Name="LblTimer"></Label>
                 </Viewbox>
         </Grid>
     </DockPanel>
