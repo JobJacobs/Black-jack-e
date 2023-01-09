@@ -133,11 +133,11 @@ namespace Black_jack_e
             TxtGeldInBank.Text = geldBank.ToString();
             Veranderstaat("speelfase");
             //start spel
-            GeefKaart(true, numberSpeler,LblSpelerNummer,SpelerKaartContainer);
-            GeefKaart(true, numberSpeler, LblSpelerNummer, SpelerKaartContainer);
+            await GeefKaart(true, numberSpeler,LblSpelerNummer,SpelerKaartContainer);
+            await GeefKaart(true, numberSpeler, LblSpelerNummer, SpelerKaartContainer);
             // geeft kaart aan speler 
             await Task.Delay(1000);
-            GeefKaart(true, numberBank, LbLBankNummer, BankKaartContainer);
+            await GeefKaart(true, numberBank, LbLBankNummer, BankKaartContainer);
             //Geef Kaart aan bank
             
         }
@@ -164,17 +164,17 @@ namespace Black_jack_e
         /// if(het dek < 1)
         /// maak nieuw dek aan       
         /// </summary>
-        private void GeefKaart(bool isSpeler , List<int> spelerBank, Label label, StackPanel kaartcontainer)
+        private async Task GeefKaart(bool isSpeler , List<int> spelerBank, Label label, StackPanel kaartcontainer)
         {
+            await Task.Delay(1000);           
             if (newDeck.Count< 1)
             {
                 newDeck= VulDeck();               
             }
             string kaart = newDeck[rnd.Next(newDeck.Count)];
-            
             Image image = new Image();
             image.MaxHeight = 80;            
-            image.Source = new BitmapImage(new Uri($"kaarten/{kaart}", UriKind.Relative));           
+            image.Source = new BitmapImage(new Uri($"kaarten/{kaart}", UriKind.Relative));
             kaartcontainer.Children.Add(image);
             string waarde = kaart.Split('.')[0].Split('_')[1];
             if (waarde == "jack" || waarde == "queen" || waarde == "king")
@@ -190,7 +190,7 @@ namespace Black_jack_e
             newDeck.Remove(kaart);
             //verwijder kaar uit dek
             aantalKaartenInDeck = newDeck.Count();
-            TxtKaartenInDeck.Text = aantalKaartenInDeck.ToString();
+            TxtKaartenInDeck.Text = aantalKaartenInDeck.ToString();           
             string kaartCounter = TxtKaartenInDeck.Text;
             
             foreach (var item in spelerBank)
@@ -219,9 +219,9 @@ namespace Black_jack_e
                        
         }
 
-        private void BtnHit_Click(object sender, RoutedEventArgs e)
+        private async void BtnHit_Click(object sender, RoutedEventArgs e)
         {
-            GeefKaart(true, numberSpeler, LblSpelerNummer, SpelerKaartContainer);
+            await GeefKaart(true, numberSpeler, LblSpelerNummer, SpelerKaartContainer);
         }
         private void Winst()
         {
@@ -245,8 +245,7 @@ namespace Black_jack_e
             
             do
             {
-                await Task.Delay(1000);
-                
+                              
                 if (numberBank.Sum() > 16)
                 {
                     if (numberBank.Sum() > numberSpeler.Sum() && numberBank.Sum() < 21)
@@ -275,7 +274,9 @@ namespace Black_jack_e
                 }
                 else
                 {
-                    GeefKaart(false, numberBank, LbLBankNummer, BankKaartContainer);
+                    
+                    await GeefKaart(false, numberBank, LbLBankNummer, BankKaartContainer);
+                    
                 }
 
             } while (bankStop == false);
@@ -293,7 +294,7 @@ namespace Black_jack_e
             bedrag = Convert.ToInt32(bedrag * (waardeslider.NewValue / 100));            
             TxtInzet.Text = bedrag.ToString();            
         }
-
+        
 
         private void BtnNieuwRonde_Click(object sender, RoutedEventArgs e)
         {
