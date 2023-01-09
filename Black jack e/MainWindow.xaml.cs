@@ -222,8 +222,6 @@ namespace Black_jack_e
         private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
             GeefKaart(true, numberSpeler, LblSpelerNummer, SpelerKaartContainer);
-
-
         }
         private void Winst()
         {
@@ -232,8 +230,8 @@ namespace Black_jack_e
             kapitaal += inzet * 2;
             TxtGeldInBank.Text = kapitaal.ToString();
             //numberBank.Sum()
-
         }
+
         private void Push()
         {
             double kapitaal = double.Parse(TxtGeldInBank.Text);
@@ -273,6 +271,7 @@ namespace Black_jack_e
                         LblVerloren.Visibility = Visibility.Hidden;
                         Winst();                        
                     }
+                    
                 }
                 else
                 {
